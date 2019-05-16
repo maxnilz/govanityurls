@@ -19,6 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"sort"
 	"strings"
@@ -95,6 +96,7 @@ func newHandler(config []byte) (*handler, error) {
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	current := r.URL.Path
+	log.Println("vanity path: ", current)
 	pc, subpath := h.paths.find(current)
 	if pc == nil && current == "/" {
 		h.serveIndex(w, r)

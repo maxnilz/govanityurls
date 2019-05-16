@@ -9,3 +9,6 @@ paths:
 
   /pmg:
     repo: https://github.com/maxnilz/pmg
+
+  /tls-credentials:
+    repo: https://github.com/maxnilz/tls-credentials
