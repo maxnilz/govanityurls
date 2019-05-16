@@ -3,7 +3,7 @@
 Go Vanity URLs is a simple App Engine Go app that allows you
 to set custom import paths for your Go packages.
 
-## What's the difference between this repo and `github.com/GoogleCloudPlatform/govanityurls`
+What's the difference between this repo and `github.com/GoogleCloudPlatform/govanityurls`
 
 - Remove the `gcloud` related part
 - Add a dockerfile so that we can use docker to deploy this app anywhere.
