@@ -3,20 +3,20 @@
 Go Vanity URLs is a simple App Engine Go app that allows you
 to set custom import paths for your Go packages.
 
+## What's the difference between this repo and `github.com/GoogleCloudPlatform/govanityurls`
+
+- Remove the `gcloud` related part
+- Add a dockerfile so that we can use docker to deploy this app anywhere.
+- Modified the README.md, and removed the `gcloud` related part
+ 
 ## Quickstart
-
-Install [gcloud](https://cloud.google.com/sdk/downloads) and install Go App Engine component:
-
-```
-$ gcloud components install app-engine-go
-```
 
 Setup a [custom domain](https://cloud.google.com/appengine/docs/standard/python/using-custom-domains-and-ssl) for your app.
 
 Get the application:
 ```
-go get -u -d github.com/GoogleCloudPlatform/govanityurls
-cd $(go env GOPATH)/src/github.com/GoogleCloudPlatform/govanityurls
+go get -u -d github.com/maxnilz/govanityurls
+cd $(go env GOPATH)/src/github.com/maxnilz/govanityurls
 ```
 
 Edit `vanity.yaml` to add any number of git repos. E.g., `customdomain.com/portmidi` will
@@ -30,26 +30,19 @@ paths:
 
 You can add as many rules as you wish.
 
-Deploy the app:
+Deploy the app with docker:
 
 ```
-$ gcloud app deploy
+$ docker build -t govanityurls .
+$ docker run -p 80:8080 -v $PWD/vanity.yaml:/etc/vanity.yaml -d govanityurls
 ```
+
+Note: Based on the requirements, you might need to setup a proxy on port `80` which will redirect the traffic to the default listen port `8080`
 
 That's it! You can use `go get` to get the package from your custom domain.
 
 ```
 $ go get customdomain.com/portmidi
-```
-
-### Running in other environments
-
-You can also deploy this as an App Engine Flexible app by changing the
-`app.yaml` file:
-
-```
-runtime: go
-env: flex
 ```
 
 This project is a normal Go HTTP server, so you can also incorporate the
